@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de contactos</title>
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="node_modules/tailwindcss/dist/tailwind.min.css">
+    <!-- JavaScript -->
+    <script src="node_modules/vue/dist/vue.min.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script defer src="js/main.js"></script>
+</head>
+<body class="bg-gray-800">
+    <h1 class="text-2xl font-bold text-center pt-10 text-yellow-500">Nuevo contacto</h1>
+    <section id="app-crear" class="flex justify-center">
+        <form> 
+            <!-- Campo Nombre -->
+            <div class="mt-12">
+                <label class="text-xl text-yellow-500 mr-4">Nombre:</label>
+                <input class="mt-2 bg-gray-800 focus:bg-transparent focus:outline-none text-white border border-yellow-500 py-2 px-4 block w-64 appearance-none leading-normal" v-model="nombre" type="text"  maxlength="20" placeholder="Maria..." v-model="nombre">
+                <p v-if="nombreError" class="text-red-400 text-sm">* Campo obligatorio</p>
+            </div>
+
+            <!-- Campo Teléfono -->
+            <div class="mt-2"> 
+                <label class="text-xl text-yellow-500 mr-4">Teléfono:</label>
+                <input class="mt-2 bg-gray-800 focus:bg-transparent focus:outline-none text-white border border-yellow-500 py-2 px-4 block w-64 appearance-none leading-normal" v-model="telefono" type="text" maxlength="9" placeholder="602...">
+                <p v-if="telefonoError" class="text-red-400 text-sm">* Campo obligatorio</p>
+                <p v-if="telefonoError2" class="text-red-400 text-sm">* Este campo no puede contener letras</p>
+            </div>
+
+            <!-- Campo E-mail -->
+            <div class="mt-2">
+                <label class="text-xl text-yellow-500 mr-4">E-mail:</label>
+                <input class="mt-2 bg-gray-800 focus:bg-transparent focus:outline-none text-white border border-yellow-500 py-2 px-4 block w-64 appearance-none leading-normal" v-model="email" type="text" maxlength="40" placeholder="correo@hotmail.com">
+            </div>
+
+            <!-- Campo Notas -->
+            <div class="mt-2">
+                <label class="text-xl text-yellow-500 mr-4">Notas:</label>
+                <textarea class="mt-2 bg-gray-800 focus:bg-transparent focus:outline-none text-white border border-yellow-500 py-2 px-4 block w-64 appearance-none leading-normal" v-model="notas" maxlength="60" placeholder="Escribe aquí..."></textarea>
+            </div>
+
+            <!-- Botones -->
+            <div class="mt-12 pb-10 flex justify-center">
+                <button :disabled="registradoLoading" @click.prevent="registrarContacto" class="bg-transparent mr-4 hover:bg-yellow-500 text-yellow-500 font-semibold hover:text-white py-2 px-4 border border-yellow-500 hover:border-transparent rounded">
+                    <span v-if="!registradoLoading">Guardar</span>
+                    <span v-else>Espere...</span>
+                </button>
+                <button class="bg-transparent hover:bg-yellow-500 text-yellow-500 font-semibold hover:text-white py-2 px-4 border border-yellow-500 hover:border-transparent rounded"><a href="index.html">Cancelar</a></button>
+            </div>
+        </form> 
+    </section>       
+</body>
+</html>

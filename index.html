@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda de contactos</title>
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="node_modules/tailwindcss/dist/tailwind.min.css">
+    <!-- JavaScript -->
+    <script src="node_modules/vue/dist/vue.min.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script defer src="js/main.js"></script>
+</head>
+<body class="bg-gray-800 h-screen">
+    <div id="app-buscador">
+        <div>          
+            <h1 class="mx-auto md:text-3xl text-2xl pt-10 font-bold text-center text-yellow-500">Agenda de contactos</h1>       
+            <!-- Ficha -->
+            <section v-if="ficha" class="w-full md:w-1/3 mx-auto h-64 mt-10 border border-yellow-500 text-white bg-black">
+                <td><button class="mt-4 ml-2" @click="ficha = undefined">❌</button></td> 
+                <p class="text-3xl text-center font-bold text-yellow-500">{{ ficha.fields.Nombre }}</p>
+                <p class="ml-6 mt-6 text-lg text-white">📞 {{ ficha.fields.Telefono }}</p>
+                <p class="ml-6 mt-2 text-lg text-white">✉ {{ ficha.fields.Email}}</p>
+                <p class="ml-6 mt-2 text-lg text-white">📝 {{ ficha.fields.Notas }}</p>
+
+            </section> 
+            <!-- Buscador -->            
+            <section id="app-buscador" class="container mx-auto">
+                <input v-model="buscar" class="mt-8 md:w-1/3 mx-auto bg-gray-800 focus:bg-transparent focus:outline-none text-white border border-yellow-500 py-2 px-4 block appearance-none leading-normal" type="text" placeholder="Buscar...">
+                <div class="mt-8 overflow-auto">
+                    <table id="altura" class="bg-black overflow-y-scroll focus:bg-transparent focus:outline-none text-white border border-yellow-500 py-6 px-4 block appearance-none leading-normal md:w-1/4 mx-6 md:mx-auto">
+                        <thead class="bg-red-700 w-full">
+                            <tr>
+                                <th class="w-48 h-10 border border-yellow-500 bg-black">Nombre
+                                    <button @click="ordenar = 'nombre'">
+                                        <span v-if="ordenar === 'nombre'">🔺</span>
+                                        <span v-else>🔻 </span>
+                                    </button>
+                                </th>
+                                <th class="w-32 h-10 border border-yellow-500 bg-black">Teléfono</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="contacto in contactosBuscados" @click="ficha = contacto">
+                                <td>{{ contacto.fields.Nombre }}</td>
+                                <td>{{ contacto.fields.Telefono }}</td> 
+                                <!-- <td><button @click="editarDatos(contacto)">editar</button></td> -->
+                                <td><button @click="eliminarDatos(contacto)">❌</button></td>            
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="w-8 mx-auto mt-10 mb-10">
+                    <button><a href="crear.html"><img class="w-8" src="img/anyadir.png"></a></button> 
+                </div>
+                </section>            
+        </div> 
+</body>
+</html>
